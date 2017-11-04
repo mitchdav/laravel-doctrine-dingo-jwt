@@ -1,0 +1,10 @@
+[submodule "packages/tempesttools/moat"]
+	path = packages/tempesttools/moat
+	url = https://tempestwf@github.com/tempestwf/tempest-tools-moat.git
+[submodule "packages/tempesttools/common"]
+	path = packages/tempesttools/common
+	url = https://tempestwf@github.com/tempestwf/tempest-tools-common.git
+[submodule "packages/tempesttools/scribe"]
+        path = packages/tempesttools/scribe
+        url = https://tempestwf@github.com/tempestwf/tempest-tools-scribe.git
+

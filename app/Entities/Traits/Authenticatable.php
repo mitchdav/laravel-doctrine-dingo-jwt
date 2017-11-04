@@ -10,7 +10,7 @@ trait Authenticatable
 	use AuthenticatableTrait;
 	
 	/**
-	 * @ORM\Column(name="email", type="string")
+	 * @ORM\Column(name="email", type="string", unique=true)
 	 * @var string $email
 	 */
 	protected $email;
