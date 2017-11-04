@@ -27,6 +27,8 @@ class UserTransformer extends Transformer
 			return array(
 				'id'    => $entity->getId(),
 				'email' => $entity->getEmail(),
+				'name'  => $entity->getName(),
+				'job'   => $entity->getJob(),
 			);
 		}
 		

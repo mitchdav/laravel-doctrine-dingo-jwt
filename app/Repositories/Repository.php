@@ -2,18 +2,18 @@
 
 namespace App\Repositories;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
+use TempestTools\Scribe\Doctrine\RepositoryAbstract;
 
-class Repository extends EntityRepository
+class Repository extends RepositoryAbstract
 {
 	protected $entity;
 	
 	public function __construct()
 	{
-		if($this->entity == NULL)
+		if($this->entity === NULL)
 		{
-			throw new \Exception('All repositories must specify which entity they are providing a repository for.');
+			throw new \RuntimeException('All repositories must specify which entity they are providing a repository for.');
 		}
 		
 		/** @var EntityManager $em */
@@ -37,4 +37,9 @@ class Repository extends EntityRepository
 		
 		return $this;
 	}
+
+	public function getTTConfig(): array
+    {
+        throw new \RuntimeException('Error: Must be implemented in extended repo');
+    }
 }
