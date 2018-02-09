@@ -1,6 +1,6 @@
 <?php
 
-use App\API\V3\Entities\User;
+use App\API\V1\Entities\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
 	/** @var EntityManagerInterface $em */
-	private $em;
+	protected $em;
 	
 	/**
 	 * DatabaseSeeder constructor.
@@ -30,12 +30,12 @@ class DatabaseSeeder extends Seeder
 		$generator = Factory::create();
 		
 		$user = new User();
-		
 		$user
 			->setEmail($generator->safeEmail)
 			->setPassword('password')
 			->setName($generator->name)
-			->setJob($generator->jobTitle);
+			->setJob($generator->jobTitle)
+            ->setAddress($generator->address);
 		
 		$this->em->persist($user);
 		

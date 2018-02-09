@@ -7,7 +7,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://localhost';
+    //protected $baseUrl = 'http://house-tempest.app/';
 
     /**
      * Creates the application.
@@ -22,4 +22,20 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    public function __get(string $name) {
+        if ($name === 'baseUrl' ) {
+            return $_SERVER['APP_URL'];
+        }
+        throw new RuntimeException('Error: Property not found');
+    }
+
+    public function __set(string $name, $value) {
+        throw new RuntimeException('Error: Property not found');
+    }
+
+    public function __isset(string $name) {
+        throw new RuntimeException('Error: Property not found');
+    }
 }
+
