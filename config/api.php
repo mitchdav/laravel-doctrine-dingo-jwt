@@ -169,9 +169,9 @@ return [
 	*/
 	
 	'auth' => [
+		//'V1' => App\API\V1\Providers\AuthServiceProvider::class,
+		//'V2' => App\API\V2\Providers\AuthServiceProvider::class,
 		'V1' => App\API\V1\Providers\AuthServiceProvider::class,
-		'V2' => App\API\V2\Providers\AuthServiceProvider::class,
-		'V3' => App\API\V3\Providers\AuthServiceProvider::class,
 	],
 	
 	/*

@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<skipper version="3.2.10.1370" mvc="Symfony3" orm="Doctrine2" name="Laravel-versioned-api" uuid="3f0a34a9-0654-4157-838f-c2267ab6d16a">
+  <module name="\app/API/V1/Entities" local-name="app/API/V1/Entities" namespace="\App\API\V1\Entities" local-namespace="\App\API\V1\Entities" export-format="Doctrine2Php" export-path="app/API/V1/Entities" uuid="4c2bc012-cb72-4b02-93df-d1bf00d5807b">
+    <entity name="\App\API\V1\Entities\Album" local-name="Album" namespace="\App\API\V1\Entities" description="List of albums owned by a user" uuid="b9413c05-f48a-45b6-9cdb-af25b6b72f2d">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="7eb3f52e-9281-46b4-8ecc-795c37a28552">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" uuid="cbc22433-5601-455d-87a8-71eba7af5417"/>
+      <field name="releaseDate" type="datetime" uuid="6fba0ab6-d380-4b81-9ba4-8e860fc2a861">
+        <orm-attributes>
+          <attribute name="column">release_date</attribute>
+        </orm-attributes>
+      </field>
+      <field name="artist_id" type="integer" uuid="a62e2747-7eed-4795-83ea-75d66756f805"/>
+      <index name="name_idx">
+        <index-field name="name"/>
+      </index>
+      <index name="releaseDate_idx">
+        <index-field name="releaseDate"/>
+      </index>
+      <orm-attributes>
+        <attribute name="repository-class">App\API\V1\Repositories\AlbumRepository</attribute>
+        <attribute name="export-file-name">Album.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\App\API\V1\Entities\Album" to="\App\API\V1\Entities\Artist" caption="Artist Album" owner-alias="albums" inverse-alias="artist" many-owner="true" many-inverse="false" uuid="be507a13-0322-4f96-ae12-fe155f33bdc0">
+      <association-field from="artist_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning">
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+            <attribute name="cascade-remove">false</attribute>
+          </attribute>
+        </attribute>
+        <attribute name="side-inverse">
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+            <attribute name="cascade-remove">false</attribute>
+          </attribute>
+        </attribute>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\App\API\V1\Entities\Artist" local-name="Artist" namespace="\App\API\V1\Entities" uuid="e33edf88-b81b-4067-b273-3bb63155408e">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="99a3972c-ab4e-4d58-93d4-35d245e9b68a">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" uuid="df7121cd-b04a-41d4-93c7-90b75ab71e59"/>
+      <index name="name_unq" unique="true">
+        <index-field name="name"/>
+      </index>
+      <orm-attributes>
+        <attribute name="repository-class">App\API\V1\Repositories\ArtistRepository</attribute>
+        <attribute name="export-file-name">Artist.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\App\API\V1\Entities\Role" local-name="Role" namespace="\App\API\V1\Entities" uuid="335198c7-ad63-4f38-91df-2f98357bd35d">
+      <field name="id" type="integer" required="true" primary="true" uuid="d2f41a26-a88d-45bc-a1ea-b1b684bfbc4a">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" uuid="4755d64a-03e5-47e6-874c-d29d64599fe4"/>
+      <orm-attributes>
+        <attribute name="repository-class">App\API\V1\Repositories\RoleRepository</attribute>
+        <attribute name="table">roles</attribute>
+        <attribute name="export-file-name">Role.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\App\API\V1\Entities\User" local-name="User" namespace="\App\API\V1\Entities" uuid="cccb5181-893d-4c1f-bded-7e0df65e3697">
+      <field name="name" type="string" uuid="d2c35e58-c34e-4a4c-9a4f-8d11eceaae3c">
+        <orm-attributes>
+          <attribute name="column">name</attribute>
+        </orm-attributes>
+      </field>
+      <field name="email" type="string" uuid="443f5645-cc20-4973-bb24-1a1eaca1f87a">
+        <orm-attributes>
+          <attribute name="column">email</attribute>
+        </orm-attributes>
+      </field>
+      <field name="address" type="string" uuid="4deb7610-3189-429a-88a1-ec3ec3e5a6dc">
+        <orm-attributes>
+          <attribute name="column">address</attribute>
+        </orm-attributes>
+      </field>
+      <field name="job" type="string" uuid="ee34e93a-a1ef-4d9d-bd42-1cd7054a40a5">
+        <orm-attributes>
+          <attribute name="column">job</attribute>
+        </orm-attributes>
+      </field>
+      <field name="id" type="integer" required="true" primary="true" uuid="cd76c1ee-0168-44cc-a04a-dea776e13315">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="repository-class">App\API\V1\Repositories\UserRepository</attribute>
+        <attribute name="table">users</attribute>
+        <attribute name="export-file-name">User.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\App\API\V1\Entities\AlbumToUser" local-name="AlbumToUser" namespace="\App\API\V1\Entities" uuid="e4e321d9-dffd-4af4-8f8b-998d9f990d98">
+      <field name="album_id" type="integer" required="true" primary="true" uuid="83f07d58-22d4-4e47-826d-6404b1c5391f"/>
+      <field name="user_id" type="integer" required="true" primary="true" uuid="03a63c08-894f-4769-9bca-9d5896ad6b9f"/>
+      <field name="id" type="integer" required="true" unique="true" primary="true" uuid="2c640704-6292-486d-84a9-3fa63f5486ed"/>
+    </entity>
+    <many-to-many mn-entity="\App\API\V1\Entities\AlbumToUser" caption="Album to User" uuid="bf0e11b6-da69-4d0d-b7ae-4ccbd347718b">
+      <many-to-many-entity name="\App\API\V1\Entities\User" owning-side="true" alias="users" uuid="5f0fe318-29a2-418a-974d-f34759534ef1">
+        <many-to-many-field from="user_id" to="id"/>
+        <orm-attributes>
+          <attribute name="cascade">
+            <attribute name="cascade-detach">false</attribute>
+          </attribute>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\API\V1\Entities\Album" owning-side="false" alias="albums" uuid="f770372a-3366-4658-9a7d-02893a3b9a46">
+        <many-to-many-field from="album_id" to="id"/>
+        <orm-attributes>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\App\API\V1\Entities\Permission" local-name="Permission" namespace="\App\API\V1\Entities" uuid="8333811e-e382-46eb-b749-e731798c6cd6">
+      <field name="id" type="integer" required="true" primary="true" uuid="4356a4a1-274c-4234-a524-35d17858c5a9">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" uuid="8821953d-99de-4e8b-98a1-a96e59104252"/>
+      <orm-attributes>
+        <attribute name="repository-class">App\API\V1\Repositories\PermissionRepository</attribute>
+        <attribute name="export-file-name">Permission.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\App\API\V1\Entities\UserToPermission" local-name="UserToPermission" namespace="\App\API\V1\Entities" uuid="c046246c-1deb-470d-9f24-9ee56d3bf230">
+      <field name="user_id" type="integer" required="true" primary="true" uuid="d0aaf39e-9de5-44cc-a40d-70462d4ef2e1"/>
+      <field name="permission_id" type="integer" required="true" primary="true" uuid="c3267317-a833-4f93-b08f-e70cac304387"/>
+    </entity>
+    <many-to-many mn-entity="\App\API\V1\Entities\UserToPermission" caption="User to Permission" uuid="ab22b10f-f5cc-4010-b9ff-ea9312392709">
+      <many-to-many-entity name="\App\API\V1\Entities\Permission" owning-side="true" alias="permissions" uuid="37d80ead-e8fb-40b8-b83a-6d628e3f4a36">
+        <many-to-many-field from="permission_id" to="id"/>
+        <orm-attributes>
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+          </attribute>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\API\V1\Entities\User" owning-side="false" alias="users" uuid="cdd07bc3-ee06-4a58-8ff1-e6e9d748aa6f">
+        <many-to-many-field from="user_id" to="id"/>
+        <orm-attributes>
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+          </attribute>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\App\API\V1\Entities\RoleToPermission" local-name="RoleToPermission" namespace="\App\API\V1\Entities" uuid="61be2e28-2dae-4445-966c-ab0ffca3e528">
+      <field name="role_id" type="integer" required="true" primary="true" uuid="3f96d078-f205-47b2-b9b9-ddd9400bfb7b"/>
+      <field name="permission_id" type="integer" required="true" primary="true" uuid="15d4d795-2970-4f04-a3ea-eefaf0c860a8"/>
+    </entity>
+    <many-to-many mn-entity="\App\API\V1\Entities\RoleToPermission" caption="Role to Permission" uuid="8f650c2b-4004-4f29-a2f1-e8d31a51a5e1">
+      <many-to-many-entity name="\App\API\V1\Entities\Permission" owning-side="true" alias="permissions" uuid="c58dcfa8-d4db-4757-a836-b3b537dc9a29">
+        <many-to-many-field from="permission_id" to="id"/>
+        <orm-attributes>
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+          </attribute>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\API\V1\Entities\Role" owning-side="false" alias="roles" uuid="4e1ad03d-2372-4e7c-927b-694dfc6b4577">
+        <many-to-many-field from="role_id" to="id"/>
+        <orm-attributes>
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+          </attribute>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\App\API\V1\Entities\UserToRole" local-name="UserToRole" namespace="\App\API\V1\Entities" uuid="7a4718b3-9f8a-477c-a8bd-4811dfe1947b">
+      <field name="user_id" type="integer" required="true" primary="true" uuid="fe66c0c0-3d2a-4c8c-81b6-8ca15cab1322"/>
+      <field name="role_id" type="integer" required="true" primary="true" uuid="895e4d9b-34b3-4bde-b1ca-bbbcd8fd27bf"/>
+    </entity>
+    <many-to-many mn-entity="\App\API\V1\Entities\UserToRole" caption="User to Role" uuid="f92ec8a8-db82-4ed7-a684-12ba3de7d690">
+      <many-to-many-entity name="\App\API\V1\Entities\Role" owning-side="true" alias="roles" uuid="a106a810-9e53-413d-b5d3-a05c7955590e">
+        <many-to-many-field from="role_id" to="id"/>
+        <orm-attributes>
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+          </attribute>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\API\V1\Entities\User" owning-side="false" alias="users" uuid="32ca44af-4f4c-4f57-bb06-3f65fe445e5a">
+        <many-to-many-field from="user_id" to="id"/>
+        <orm-attributes>
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+          </attribute>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+    </many-to-many>
+    <orm-attributes>
+      <attribute name="filename-format">entity-name-only</attribute>
+    </orm-attributes>
+  </module>
+  <module name="\vendor/laravel-doctrine/acl/src/Permissions" local-name="vendor/laravel-doctrine/acl/src/Permissions" namespace="\LaravelDoctrine\ACL\Permissions" local-namespace="\LaravelDoctrine\ACL\Permissions" export-format="Doctrine2Php" export-path="vendor/laravel-doctrine/acl/src/Permissions" uuid="96f428b0-b3df-44b2-86b1-1278a68b1641">
+    <entity name="\LaravelDoctrine\ACL\Permissions\Permission" local-name="Permission" namespace="\LaravelDoctrine\ACL\Permissions" uuid="51bd6952-a6b4-40e9-b522-d277e14bcd14">
+      <field name="id" type="integer" required="true" primary="true" uuid="03153632-3342-44fd-9f08-a88e44c2d9a8">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" uuid="bc652dcb-9784-461b-8cd4-a68651eae686"/>
+      <orm-attributes>
+        <attribute name="export-file-name">Permission.php</attribute>
+      </orm-attributes>
+    </entity>
+  </module>
+  <module name="\vendor/laravel-doctrine/orm/src/Notifications" local-name="vendor/laravel-doctrine/orm/src/Notifications" namespace="\LaravelDoctrine\ORM\Notifications" local-namespace="\LaravelDoctrine\ORM\Notifications" export-format="Doctrine2Php" export-path="vendor/laravel-doctrine/orm/src/Notifications" uuid="a1654012-b666-4b51-b1d4-2a040835badb">
+    <entity name="\LaravelDoctrine\ORM\Notifications\Notification" local-name="Notification" namespace="\LaravelDoctrine\ORM\Notifications" uuid="446dec21-7212-4de8-82aa-2f0d10cd4295">
+      <field name="id" type="integer" required="true" primary="true" uuid="fa342c47-b91e-408d-8812-d61bee3cfac3">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="level" type="string" uuid="677e4670-4036-4fec-8dec-587835492154"/>
+      <field name="message" type="string" uuid="a65e4010-5034-4a6f-a1f1-555bd6dabdac"/>
+      <field name="actionText" type="string" uuid="123bd67f-a7fb-44d0-8f02-39073d4f5f55"/>
+      <field name="actionUrl" type="string" uuid="a470b2de-8967-4232-bac5-2d29bcac9217"/>
+      <orm-attributes>
+        <attribute name="export-file-name">Notification.php</attribute>
+      </orm-attributes>
+    </entity>
+  </module>
+  <visual-data>
+    <association uuid="be507a13-0322-4f96-ae12-fe155f33bdc0" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <entity uuid="335198c7-ad63-4f38-91df-2f98357bd35d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="418" position-y="196" size-x="0" size-x2="80" size-y="0" size-y2="45"/>
+    <entity uuid="446dec21-7212-4de8-82aa-2f0d10cd4295" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="20" position-y="40" size-x="0" size-x2="99" size-y="0" size-y2="87"/>
+    <entity uuid="51bd6952-a6b4-40e9-b522-d277e14bcd14" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="20" position-y="40" size-x="0" size-x2="80" size-y="0" size-y2="45"/>
+    <entity uuid="61be2e28-2dae-4445-966c-ab0ffca3e528" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="227" position-y="106" size-x="0" size-x2="119" size-y="0" size-y2="60"/>
+    <entity uuid="7a4718b3-9f8a-477c-a8bd-4811dfe1947b" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="184" position-y="196" size-x="0" size-x2="92" size-y="0" size-y2="60"/>
+    <entity uuid="8333811e-e382-46eb-b749-e731798c6cd6" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="242" position-y="19" size-x="0" size-x2="80" size-y="0" size-y2="45"/>
+    <entity uuid="b9413c05-f48a-45b6-9cdb-af25b6b72f2d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="401" position-y="278" size-x="0" size-x2="120" size-y="0" size-y2="73"/>
+    <entity uuid="c046246c-1deb-470d-9f24-9ee56d3bf230" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="15" position-y="11" size-x="0" size-x2="119" size-y="0" size-y2="60"/>
+    <entity uuid="cccb5181-893d-4c1f-bded-7e0df65e3697" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="15" position-y="291" size-x="0" size-x2="90" size-y="0" size-y2="87"/>
+    <entity uuid="e33edf88-b81b-4067-b273-3bb63155408e" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="648" position-y="281" size-x="0" size-x2="80" size-y="0" size-y2="45"/>
+    <entity uuid="e4e321d9-dffd-4af4-8f8b-998d9f990d98" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="202" position-y="302" size-x="0" size-x2="99" size-y="0" size-y2="74"/>
+    <many-to-many-association uuid="8f650c2b-4004-4f29-a2f1-e8d31a51a5e1" color="#969696"/>
+    <many-to-many-association uuid="ab22b10f-f5cc-4010-b9ff-ea9312392709" color="#969696"/>
+    <many-to-many-association uuid="bf0e11b6-da69-4d0d-b7ae-4ccbd347718b" color="#969696"/>
+    <many-to-many-association uuid="f92ec8a8-db82-4ed7-a684-12ba3de7d690" color="#969696"/>
+    <many-to-many-association-entity uuid="4e1ad03d-2372-4e7c-927b-694dfc6b4577" caption1-position-x="-1" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <many-to-many-association-entity uuid="f770372a-3366-4658-9a7d-02893a3b9a46" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <module uuid="4c2bc012-cb72-4b02-93df-d1bf00d5807b" bg-color="#E7F5FD" position-x="49" position-y="49" size-x="0" size-x2="902" size-y="21" size-y2="528"/>
+    <module uuid="96f428b0-b3df-44b2-86b1-1278a68b1641" bg-color="#E7F3E7" position-x="216" position-y="634" size-x="0" size-x2="134" size-y="0" size-y2="105"/>
+    <module uuid="a1654012-b666-4b51-b1d4-2a040835badb" bg-color="#FEFCE8" position-x="22" position-y="597" size-x="0" size-x2="139" size-y="0" size-y2="147"/>
+    <project uuid="3f0a34a9-0654-4157-838f-c2267ab6d16a" size-x="0" size-x2="1070" size-y="0" size-y2="794"/>
+  </visual-data>
+</skipper>

@@ -155,10 +155,17 @@ return [
 		App\Providers\AuthServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
-		
+
+        /*
+		 * Additional Extensions...
+		 */
 		LaravelDoctrine\ORM\DoctrineServiceProvider::class,
 		Dingo\Api\Provider\LaravelServiceProvider::class,
 		Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider::class,
+        LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class,
+        LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
+        //LaravelDoctrine\ACL\AclServiceProvider::class,
 	
 	],
 	
